@@ -21,8 +21,4 @@ public class Promotions {
             this.promotions.add(new Promotion(promotionName, buyCount, getCount, startDate, endDate));
         }
     }
-
-    public int size() {
-        return this.promotions.size();
-    }
 }
