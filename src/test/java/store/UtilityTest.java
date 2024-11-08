@@ -2,7 +2,7 @@ package store;
 
 import org.junit.jupiter.api.Test;
 import store.dto.ParsedProductDto;
-import store.utility.InventoryFileReader;
+import store.utility.FileReader.InventoryFileReader;
 
 import java.util.List;
 

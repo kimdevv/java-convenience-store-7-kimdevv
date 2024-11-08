@@ -1,4 +1,4 @@
-package store.utility;
+package store.utility.FileReader;
 
 import store.dto.ParsedProductDto;
 
@@ -6,8 +6,8 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static store.utility.BufferedReaderManager.getFileReaderFromPath;
-import static store.utility.BufferedReaderManager.readLine;
+import static store.utility.FileReader.BufferedReaderManager.getFileReaderFromPath;
+import static store.utility.FileReader.BufferedReaderManager.readLine;
 
 public class InventoryFileReader {
     public static List<ParsedProductDto> inputInventoryFromFile() {
