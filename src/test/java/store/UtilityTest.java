@@ -15,4 +15,10 @@ public class UtilityTest {
         List<ParsedProductDto> parsedProducts = InventoryFileReader.inputInventoryFromFile();
         assertThat(parsedProducts.size() > 0);
     }
+
+    @Test
+    void 프로모션_목록을_파일로부터_가져온다() {
+        List<ParsedPromotionDto> parsedPromotions = PromotionFileReader.inputPromotionFromFile();
+        assertThat(parsedPromotions.size() > 0);
+    }
 }
