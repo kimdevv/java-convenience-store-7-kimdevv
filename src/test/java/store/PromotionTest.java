@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import store.dto.ParsedPromotionDto;
+import store.model.store.Promotions;
 import store.utility.FileReader.PromotionFileReader;
 
 import java.util.List;
