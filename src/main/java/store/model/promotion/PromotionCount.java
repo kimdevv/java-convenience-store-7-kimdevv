@@ -8,4 +8,11 @@ public class PromotionCount {
         this.buyCount = buyCount;
         this.getCount = getCount;
     }
+
+    protected int getBuyCount() {
+        return this.buyCount;
+    }
+    protected  int getGetCount() {
+        return this.getCount;
+    }
 }

@@ -7,6 +7,10 @@ public class ProductQuantity {
     protected ProductQuantity() {
     }
 
+    private void decrease(int quantity) {
+
+    }
+
     protected void setNormal(int quantity) {
         this.normalQuantity = quantity;
     }

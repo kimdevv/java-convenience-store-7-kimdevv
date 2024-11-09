@@ -13,4 +13,9 @@ public class PromotionDate {
         this.startDate = DateTimeManager.parse(startDate);
         this.endDate = DateTimeManager.parse(endDate);
     }
+
+    protected boolean isTodayInPromotionDate() {
+        LocalDateTime now = DateTimes.now();
+        return now.isAfter(this.startDate) && now.isBefore(this.endDate);
+    }
 }
