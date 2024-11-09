@@ -1,6 +1,7 @@
 package store.utility;
 
 import org.junit.jupiter.api.Test;
+import store.dto.BuyProductParseDto;
 import store.dto.ParsedProductDto;
 import store.dto.ParsedPromotionDto;
 import store.utility.FileReader.InventoryFileReader;
