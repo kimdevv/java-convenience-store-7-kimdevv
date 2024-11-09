@@ -28,7 +28,7 @@ public class InventoryMakerTest {
     @Test
     void 재고_목록을_등록한_리스트를_가져온다() {
         List<Product> allProducts = inventoryMaker.setInventoryFromParsedString(parsedProducts);
-        assertThat(allProducts.size()).isEqualTo(16);
+        assertThat(allProducts.size()).isEqualTo(11);
     }
 
 }

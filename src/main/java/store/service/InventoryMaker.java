@@ -39,14 +39,16 @@ public class InventoryMaker {
     }
     
     private Product findProductByNameOrNew(List<Product> products, String productName, int price) {
-        Product xxx = products.stream()
+        Product existProductWithName = products.stream()
                 .filter(product -> product.getName().equals(productName))
                 .findFirst()
                 .orElse(null);
-        if (xxx != null) {
-            return xxx;
+
+        if (existProductWithName == null) {
+            return new Product(productName, price);
         }
-        return new Product(productName, price);
+        products.remove(existProductWithName);
+        return existProductWithName;
     }
     
     private void setQuantityWithPromotion(Product product, int quantity, Promotion promotion) {
