@@ -1,6 +1,7 @@
 package store.model.store;
 
 import store.dto.BuyProductDto;
+import store.dto.DecreasePromotionQuantityDto;
 import store.enumerate.ExceptionEnum;
 import store.model.product.Product;
 import store.utility.ExceptionThrower;
@@ -37,6 +38,10 @@ public class Inventory {
     private BuyProductDto makeBuyDto(Product product, int quantity) {
         String name = product.getName();
         int unitPrice = product.getPrice();
-
+        DecreasePromotionQuantityDto promotionQuantityDto = product.decreaseBoughtQuantity(quantity);
+        int freeQuantity = promotionQuantityDto.freeQuantity();
+        int lackQuantity = promotionQuantityDto.lackQuantity();
+        int needQuantity = promotionQuantityDto.needQuantity();
+        return new BuyProductDto(name, quantity, unitPrice, freeQuantity, lackQuantity, needQuantity);
     }
 }
