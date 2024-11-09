@@ -15,7 +15,7 @@ public class Inventory {
         this.products = allProducts;
     }
 
-    private BuyProductDto buy(String productName, int quantity) {
+    public BuyProductDto buy(String productName, int quantity) {
         Product product = findProductByName(productName);
         validateProductIsNull(product);
 

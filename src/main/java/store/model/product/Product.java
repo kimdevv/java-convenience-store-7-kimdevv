@@ -18,8 +18,15 @@ public class Product {
     }
 
     public DecreasePromotionQuantityDto decreaseBoughtQuantity(int quantity) {
-        PromotionCountDto promotionCountDto = this.promotion.checkAvailablePromotion();
+        PromotionCountDto promotionCountDto = getPromotionDate();
         return this.quantity.decrease(quantity, promotionCountDto);
+    }
+
+    private PromotionCountDto getPromotionDate() {
+        if (this.promotion != null) {
+            return this.promotion.checkAvailablePromotion();
+        }
+        return null;
     }
 
     public String getName() {

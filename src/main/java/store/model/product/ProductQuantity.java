@@ -13,9 +13,8 @@ public class ProductQuantity {
     }
 
     protected DecreasePromotionQuantityDto decrease(int quantity, PromotionCountDto promotionCountDto) {
-        int buyCount = promotionCountDto.buyCount(), getCount = promotionCountDto.getCount();
-
         if (promotionCountDto != null) {
+            int buyCount = promotionCountDto.buyCount(), getCount = promotionCountDto.getCount();
             int[] freeAndLackAndRemain = decreasePromotionQuantity(quantity, buyCount, getCount);
             int needQuantity = calculateNeedQuantity(quantity, buyCount, getCount);
             decreaseNormalQuantity(freeAndLackAndRemain[2]);
