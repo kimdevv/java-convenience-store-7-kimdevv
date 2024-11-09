@@ -29,7 +29,7 @@ public class InventoryTest {
     }
 
     @BeforeEach
-    static void Inventory_객체를_초기화한다() {
+    void Inventory_객체를_초기화한다() {
         inventory = new Inventory(allProducts);
     }
 }
