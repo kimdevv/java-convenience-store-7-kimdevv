@@ -39,7 +39,7 @@ public class ProductQuantity {
     private int[] decreasePromotionQuantity(int quantity, int buyCount, int getCount) {
         if (quantity > promotionQuantity) {
             int freeQuantity = promotionQuantity / (buyCount + getCount) * getCount;
-            int lackQuantity = quantity - promotionQuantity / (buyCount+getCount);
+            int lackQuantity = quantity - (freeQuantity * (buyCount+getCount));
             int remainQuantity = quantity - promotionQuantity;
             promotionQuantity = 0;
             return new int[] {freeQuantity, lackQuantity, remainQuantity};
