@@ -34,4 +34,17 @@ public class UtilityTest {
         assertThat(result.get(1)).isEqualTo(new BuyProductParseDto("감자칩", 1));
         assertThat(result.get(2)).isEqualTo(new BuyProductParseDto("물", 3));
     }
+
+    @Test
+    void 멤버십_할인_금액을_계산한다() {
+        int originalTotalPrice = 5000;
+        int membershipSalePrice = MembershipSaleCalculator.calculate(originalTotalPrice);
+        assertThat(membershipSalePrice).isEqualTo(1500);
+    }
+    @Test
+    void 멤버십_할인의_최대금액은_8000원이다() {
+        int originalTotalPrice = 50000;
+        int membershipSalePrice = MembershipSaleCalculator.calculate(originalTotalPrice);
+        assertThat(membershipSalePrice).isEqualTo(8000);
+    }
 }
