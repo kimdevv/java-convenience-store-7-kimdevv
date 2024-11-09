@@ -21,4 +21,11 @@ public class Promotions {
             this.promotions.add(new Promotion(promotionName, buyCount, getCount, startDate, endDate));
         }
     }
+
+    public Promotion findPromotionByPromotionName(String name) {
+        return this.promotions.stream()
+                .filter(promotion -> promotion.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
 }

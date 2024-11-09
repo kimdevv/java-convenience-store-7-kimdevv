@@ -10,4 +10,8 @@ public class Promotion {
         this.count = new PromotionCount(buyCount, getCount);
         this.date = new PromotionDate(startDate, endDate);
     }
+
+    public String getName() {
+        return this.name;
+    }
 }
