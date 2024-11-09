@@ -12,7 +12,7 @@ import store.utility.FileReader.PromotionFileReader;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 public class InventoryTest {
 
@@ -57,6 +57,28 @@ public class InventoryTest {
     }
 
     @Test
+    void 프로모션_상품을_구매한다2() {
+        BuyProductDto buyProductDto = inventory.buy("콜라", 10);
+        assertThat(buyProductDto.name()).isEqualTo("콜라");
+        assertThat(buyProductDto.quantity()).isEqualTo(10);
+        assertThat(buyProductDto.unitPrice()).isEqualTo(1000);
+        assertThat(buyProductDto.freeQuantity()).isEqualTo(3);
+        assertThat(buyProductDto.lackQuantity()).isEqualTo(1);
+        assertThat(buyProductDto.needQuantity()).isEqualTo(0);
+    }
+
+    @Test
+    void 프로모션_상품을_구매한다3() {
+        BuyProductDto buyProductDto = inventory.buy("콜라", 20);
+        assertThat(buyProductDto.name()).isEqualTo("콜라");
+        assertThat(buyProductDto.quantity()).isEqualTo(20);
+        assertThat(buyProductDto.unitPrice()).isEqualTo(1000);
+        assertThat(buyProductDto.freeQuantity()).isEqualTo(3);
+        assertThat(buyProductDto.lackQuantity()).isEqualTo(11);
+        assertThat(buyProductDto.needQuantity()).isEqualTo(0);
+    }
+
+    @Test
     void 프로모션_상품을_부족하게구매한다() {
         BuyProductDto buyProductDto = inventory.buy("콜라", 2);
         assertThat(buyProductDto.name()).isEqualTo("콜라");
@@ -76,5 +98,12 @@ public class InventoryTest {
         assertThat(buyProductDto.freeQuantity()).isEqualTo(3);
         assertThat(buyProductDto.lackQuantity()).isEqualTo(6);
         assertThat(buyProductDto.needQuantity()).isEqualTo(0);
+    }
+
+    @Test
+    void 구입할_수_없는_수량을_입력했을_경우() {
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> inventory.buy("콜라", 25))
+                .withMessageStartingWith("[ERROR]");
     }
 }
