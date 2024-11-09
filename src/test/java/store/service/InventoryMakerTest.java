@@ -1,17 +1,18 @@
-package store;
+package store.service;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import store.service.InventoryMaker;
+import org.junit.jupiter.api.Test;
 import store.dto.ParsedProductDto;
 import store.model.product.Product;
 import store.model.store.Promotions;
 import store.utility.FileReader.InventoryFileReader;
 import store.utility.FileReader.PromotionFileReader;
 
+import static org.assertj.core.api.Assertions.*;
+
 import java.util.List;
 
-public class InventoryTest {
+public class InventoryMakerTest {
     static List<ParsedProductDto> parsedProducts;
     static InventoryMaker inventoryMaker;
 
@@ -24,9 +25,10 @@ public class InventoryTest {
         inventoryMaker = new InventoryMaker(promotions);
     }
 
-    @BeforeEach
+    @Test
     void 재고_목록을_등록한_리스트를_가져온다() {
         List<Product> allProducts = inventoryMaker.setInventoryFromParsedString(parsedProducts);
+        assertThat(allProducts.size()).isEqualTo(16);
     }
 
 }

@@ -1,4 +1,4 @@
-package store;
+package store.utility;
 
 import org.junit.jupiter.api.Test;
 import store.dto.ParsedProductDto;

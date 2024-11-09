@@ -1,8 +1,7 @@
-package store;
+package store.model.store;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import store.dto.ParsedPromotionDto;
 import store.model.store.Promotions;
 import store.utility.FileReader.PromotionFileReader;
@@ -11,7 +10,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PromotionTest {
+public class PromotionsTest {
     static List<ParsedPromotionDto> parsedPromotions;
     static Promotions promotions;
 
