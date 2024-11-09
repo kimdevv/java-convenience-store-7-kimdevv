@@ -37,6 +37,10 @@ public class Product {
         return this.price;
     }
 
+    public boolean isPromotionNull() {
+        return this.promotion == null;
+    }
+
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
     }

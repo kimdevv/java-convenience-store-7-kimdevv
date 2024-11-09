@@ -32,7 +32,9 @@ public class InventoryMaker {
         Product product = findProductByNameOrNew(products, productName, price);
 
         Promotion promotion = promotions.findPromotionByPromotionName(promotionName);
-        product.setPromotion(promotion);
+        if (product.isPromotionNull()) {
+            product.setPromotion(promotion);
+        }
         setQuantityWithPromotion(product, quantity, promotion);
 
         return product;
