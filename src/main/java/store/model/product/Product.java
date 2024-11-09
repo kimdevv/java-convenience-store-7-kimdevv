@@ -1,5 +1,6 @@
 package store.model.product;
 
+import store.dto.DecreasePromotionQuantityDto;
 import store.dto.PromotionCountDto;
 import store.model.promotion.Promotion;
 
@@ -18,6 +19,7 @@ public class Product {
 
     private void decreaseBoughtQuantity(int quantity) {
         PromotionCountDto promotionCountDto = this.promotion.checkAvailablePromotion();
+        DecreasePromotionQuantityDto decreasePromotionQuantityDto = this.quantity.decrease(quantity, promotionCountDto);
     }
 
     public String getName() {
