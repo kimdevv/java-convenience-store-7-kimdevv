@@ -5,7 +5,9 @@ public enum ExceptionEnum {
     READ_LINE_ERROR("파일을 읽는 데 실패하였습니다."),
     CANNOT_FIND_PRODUCT("존재하지 않는 상품명입니다."),
     TOO_MANY_COUNT("구입 가능한 개수를 초과하였습니다."),
-    INVALID_BUY_INPUT_FORMAT("입력 양식이 잘못되었습니다.");
+    INVALID_BUY_INPUT_FORMAT("입력 양식이 잘못되었습니다."),
+    ANSWER_HAVE_TO_YN("입력은 Y 혹은 N으로만 가능합니다."),
+    NO_DECREASABLE_COUNT("더이상 구입할 수 없습니다.");
 
     private final String message;
 
