@@ -17,8 +17,7 @@ public class BuyProductParser {
                 .stream()
                 .map(rawInput -> {
                     validateFormat(rawInput);
-                    String[] rawProductAndQuantity = rawInput.replace(BUY_PRODUCT_INPUT_STARTER, "").replace(BUY_PRODUCT_INPUT_ENDER, "").split(BUY_PRODUCT_NAME_AND_QUANTITY_DELIMITER);
-
+                    String[] rawProductAndQuantity = parseNameAndQuantityFromRawInput(rawInput);
                     String rawProduct = rawProductAndQuantity[0];
                     int quantity = Integer.parseInt(rawProductAndQuantity[1]);
                     return new BuyProductParseDto(rawProduct, quantity);
@@ -30,5 +29,12 @@ public class BuyProductParser {
         if (!INPUT_FORMAT.matcher(rawProductInput).matches()) {
             throw new IllegalArgumentException(ExceptionEnum.INVALID_BUY_INPUT_FORMAT.getMessage());
         }
+    }
+
+    private static String[] parseNameAndQuantityFromRawInput(String rawInput) {
+        return rawInput
+                .replace(BUY_PRODUCT_INPUT_STARTER, "")
+                .replace(BUY_PRODUCT_INPUT_ENDER, "")
+                .split(BUY_PRODUCT_NAME_AND_QUANTITY_DELIMITER);
     }
 }

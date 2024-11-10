@@ -56,7 +56,8 @@ public class ProductBuyer {
         }
     }
 
-    private BuyProductDto decreaseLackQuantityByAnswer(Inventory inventory, BuyProductDto boughtProduct, String answer) {
+    private BuyProductDto decreaseLackQuantityByAnswer(Inventory inventory,
+                                                       BuyProductDto boughtProduct, String answer) {
         if (BooleanMakerFromYN.make(answer)) {
             return boughtProduct;
         }
@@ -75,7 +76,8 @@ public class ProductBuyer {
         }
     }
 
-    private BuyProductDto decreaseNeedQuantityByAnswer(Inventory inventory, BuyProductDto boughtProduct, String answer) {
+    private BuyProductDto decreaseNeedQuantityByAnswer(Inventory inventory,
+                                                       BuyProductDto boughtProduct, String answer) {
         if (BooleanMakerFromYN.make(answer)) {
             return inventory.increaseNeedQuantity(boughtProduct);
         }
