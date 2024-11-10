@@ -21,7 +21,7 @@ public class PriceCalculator {
     private static int calculateTotalCount(List<BuyProductDto> boughtProducts) {
         int totalCount = 0;
         for (BuyProductDto boughtProduct : boughtProducts) {
-            totalCount += boughtProduct.getQuantity();
+            totalCount += boughtProduct.quantity();
         }
         return totalCount;
     }
@@ -30,9 +30,9 @@ public class PriceCalculator {
         int totalPrice = 0;
         int promotionSale = 0;
         for (BuyProductDto boughtProduct : boughtProducts) {
-            int unitPrice = boughtProduct.getUnitPrice();
-            totalPrice += boughtProduct.getQuantity() * unitPrice;
-            promotionSale += boughtProduct.getFreeQuantity() * unitPrice;
+            int unitPrice = boughtProduct.unitPrice();
+            totalPrice += boughtProduct.quantity() * unitPrice;
+            promotionSale += boughtProduct.freeQuantity() * unitPrice;
         }
         return new int[] {totalPrice, promotionSale};
     }

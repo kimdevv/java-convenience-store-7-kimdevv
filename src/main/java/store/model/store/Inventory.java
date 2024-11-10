@@ -1,5 +1,6 @@
 package store.model.store;
 
+import static store.constant.Constants.*;
 import store.dto.BuyProductDto;
 import store.dto.DecreasePromotionQuantityDto;
 import store.dto.ProductInfoDto;
@@ -50,5 +51,25 @@ public class Inventory {
         return this.products.stream()
                 .map(product -> product.getProductInformaion())
                 .collect(Collectors.toList());
+    }
+
+    public BuyProductDto decreaseLackQuantity(BuyProductDto buyProductDto) {
+        String name = buyProductDto.name();
+        int newQuantity = buyProductDto.quantity() - buyProductDto.lackQuantity();
+        int unitPrice = buyProductDto.unitPrice();
+        int freeQuantity = buyProductDto.freeQuantity();
+        int newLackQuantity = MINIMUN_QUANTITY_OF_PRODUCT;
+        int needQuantity = buyProductDto.needQuantity();
+        return new BuyProductDto(name, newQuantity, unitPrice, freeQuantity, newLackQuantity, needQuantity);
+    }
+
+    public BuyProductDto increaseNeedQuantity(BuyProductDto buyProductDto) {
+        String name = buyProductDto.name();
+        int newQuantity = buyProductDto.quantity() + buyProductDto.needQuantity();
+        int unitPrice = buyProductDto.unitPrice();
+        int newFreeQuantity = buyProductDto.freeQuantity() + buyProductDto.needQuantity();
+        int lackQuantity = buyProductDto.lackQuantity();
+        int newNeedQuantity = MINIMUN_QUANTITY_OF_PRODUCT;
+        return new BuyProductDto(name, newQuantity, unitPrice, newFreeQuantity, lackQuantity, newNeedQuantity);
     }
 }

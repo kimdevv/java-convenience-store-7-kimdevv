@@ -40,13 +40,13 @@ public class OutputView {
         StringBuilder allProducts = new StringBuilder("==============W 편의점================\n상품명\s\s수량\s금액\n");
         StringBuilder freeProducts = new StringBuilder("==============증\s정================\n");
         for (BuyProductDto boughtProduct : boughtProducts) {
-            allProducts.append(String.format("%s\s\s%d\s%,d\n", boughtProduct.getName(),
-                    boughtProduct.getQuantity(), boughtProduct.getQuantity() * boughtProduct.getUnitPrice()));
-            if (boughtProduct.getFreeQuantity() > 0) {
-                freeProducts.append(String.format("%s\s\s%d\n", boughtProduct.getName(), boughtProduct.getFreeQuantity()));
+            allProducts.append(String.format("%s\s\s%d\s%,d\n", boughtProduct.name(),
+                    boughtProduct.quantity(), boughtProduct.quantity() * boughtProduct.unitPrice()));
+            if (boughtProduct.freeQuantity() > 0) {
+                freeProducts.append(String.format("%s\s\s%d\n", boughtProduct.name(), boughtProduct.freeQuantity()));
             }
         }
-        System.out.println(allProducts.append(freeProducts));
+        System.out.print(allProducts.append(freeProducts));
     }
 
     private static void outputBillingResult(BillingDto billingResult) {

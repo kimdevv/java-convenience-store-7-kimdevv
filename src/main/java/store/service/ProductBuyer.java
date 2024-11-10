@@ -29,57 +29,56 @@ public class ProductBuyer {
         return rawBuyProducts.stream()
                 .map(rawBuyProduct -> {
                     BuyProductDto boughtProduct = inventory.buy(rawBuyProduct.name(), rawBuyProduct.quantity());
-                    checkIfLackOrNeed(boughtProduct);
-                    return boughtProduct;
+                    return checkIfLackOrNeed(inventory, boughtProduct);
                 })
                 .collect(Collectors.toList());
     }
 
-    private void checkIfLackOrNeed(BuyProductDto boughtProduct) {
-        if (boughtProduct.getLackQuantity() > MINIMUN_QUANTITY_OF_PRODUCT) {
-            askNoPromotionSale(boughtProduct);
+    private BuyProductDto checkIfLackOrNeed(Inventory inventory, BuyProductDto boughtProduct) {
+        if (boughtProduct.lackQuantity() > MINIMUN_QUANTITY_OF_PRODUCT) {
+            boughtProduct = askNoPromotionSale(inventory, boughtProduct);
         }
-        if (boughtProduct.getNeedQuantity() > MINIMUN_QUANTITY_OF_PRODUCT) {
-            askBuyMoreProduct(boughtProduct);
+        if (boughtProduct.needQuantity() > MINIMUN_QUANTITY_OF_PRODUCT) {
+            boughtProduct = askBuyMoreProduct(inventory, boughtProduct);
         }
+        return boughtProduct;
     }
 
-    private void askNoPromotionSale(BuyProductDto boughtProduct) {
+    private BuyProductDto askNoPromotionSale(Inventory inventory, BuyProductDto boughtProduct) {
         while (true) {
             try {
-                String answer = InputView.inputNoPromotionSale(boughtProduct.getName(), boughtProduct.getLackQuantity());
+                String answer = InputView.inputNoPromotionSale(boughtProduct.name(), boughtProduct.lackQuantity());
                 InputValidator.validateYesNo(answer);
-                decreaseLackQuantityByAnswer(boughtProduct, answer);
-                return;
+                return decreaseLackQuantityByAnswer(inventory, boughtProduct, answer);
             } catch (IllegalArgumentException exception) {
                 System.out.println(exception.getMessage());
             }
         }
     }
 
-    private void decreaseLackQuantityByAnswer(BuyProductDto boughtProduct, String answer) {
+    private BuyProductDto decreaseLackQuantityByAnswer(Inventory inventory, BuyProductDto boughtProduct, String answer) {
         if (BooleanMakerFromYN.make(answer)) {
-            return;
+            return boughtProduct;
         }
-        boughtProduct.decreaseLackQuantity();
+        return inventory.decreaseLackQuantity(boughtProduct);
     }
 
-    private void askBuyMoreProduct(BuyProductDto boughtProduct) {
+    private BuyProductDto askBuyMoreProduct(Inventory inventory, BuyProductDto boughtProduct) {
         while (true) {
             try {
-                String answer = InputView.inputBuyMoreProduct(boughtProduct.getName(), boughtProduct.getNeedQuantity());
+                String answer = InputView.inputBuyMoreProduct(boughtProduct.name(), boughtProduct.needQuantity());
                 InputValidator.validateYesNo(answer);
-                decreaseNeedQuantityByAnswer(boughtProduct, answer);
-                return;
+                return decreaseNeedQuantityByAnswer(inventory, boughtProduct, answer);
             } catch (IllegalArgumentException exception) {
                 System.out.println(exception.getMessage());
             }
         }
     }
 
-    private void decreaseNeedQuantityByAnswer(BuyProductDto boughtProduct, String answer) {
+    private BuyProductDto decreaseNeedQuantityByAnswer(Inventory inventory, BuyProductDto boughtProduct, String answer) {
         if (BooleanMakerFromYN.make(answer)) {
-            boughtProduct.increaseNeedQuantity();
+            return inventory.increaseNeedQuantity(boughtProduct);
         }
+        return boughtProduct;
     }
 }
