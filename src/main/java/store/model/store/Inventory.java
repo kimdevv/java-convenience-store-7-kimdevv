@@ -27,7 +27,7 @@ public class Inventory {
         return this.products.stream()
                 .filter(product -> product.getName().equals(productName))
                 .findFirst()
-                .orElseGet(null);
+                .orElse(null);
     }
 
     private void validateProductIsNull(Product product) {
