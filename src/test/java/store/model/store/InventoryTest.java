@@ -37,67 +37,67 @@ public class InventoryTest {
     @Test
     void 상품을_구매한다() {
         BuyProductDto buyProductDto = inventory.buy("물", 5);
-        assertThat(buyProductDto.name()).isEqualTo("물");
-        assertThat(buyProductDto.quantity()).isEqualTo(5);
-        assertThat(buyProductDto.unitPrice()).isEqualTo(500);
-        assertThat(buyProductDto.freeQuantity()).isEqualTo(0);
-        assertThat(buyProductDto.lackQuantity()).isEqualTo(0);
-        assertThat(buyProductDto.needQuantity()).isEqualTo(0);
+        assertThat(buyProductDto.getName()).isEqualTo("물");
+        assertThat(buyProductDto.getQuantity()).isEqualTo(5);
+        assertThat(buyProductDto.getUnitPrice()).isEqualTo(500);
+        assertThat(buyProductDto.getFreeQuantity()).isEqualTo(0);
+        assertThat(buyProductDto.getLackQuantity()).isEqualTo(0);
+        assertThat(buyProductDto.getNeedQuantity()).isEqualTo(0);
     }
 
     @Test
     void 프로모션_상품을_구매한다() {
         BuyProductDto buyProductDto = inventory.buy("콜라", 6);
-        assertThat(buyProductDto.name()).isEqualTo("콜라");
-        assertThat(buyProductDto.quantity()).isEqualTo(6);
-        assertThat(buyProductDto.unitPrice()).isEqualTo(1000);
-        assertThat(buyProductDto.freeQuantity()).isEqualTo(2);
-        assertThat(buyProductDto.lackQuantity()).isEqualTo(0);
-        assertThat(buyProductDto.needQuantity()).isEqualTo(0);
+        assertThat(buyProductDto.getName()).isEqualTo("콜라");
+        assertThat(buyProductDto.getQuantity()).isEqualTo(6);
+        assertThat(buyProductDto.getUnitPrice()).isEqualTo(1000);
+        assertThat(buyProductDto.getFreeQuantity()).isEqualTo(2);
+        assertThat(buyProductDto.getLackQuantity()).isEqualTo(0);
+        assertThat(buyProductDto.getNeedQuantity()).isEqualTo(0);
     }
 
     @Test
     void 프로모션_상품을_구매한다2() {
         BuyProductDto buyProductDto = inventory.buy("콜라", 10);
-        assertThat(buyProductDto.name()).isEqualTo("콜라");
-        assertThat(buyProductDto.quantity()).isEqualTo(10);
-        assertThat(buyProductDto.unitPrice()).isEqualTo(1000);
-        assertThat(buyProductDto.freeQuantity()).isEqualTo(3);
-        assertThat(buyProductDto.lackQuantity()).isEqualTo(1);
-        assertThat(buyProductDto.needQuantity()).isEqualTo(0);
+        assertThat(buyProductDto.getName()).isEqualTo("콜라");
+        assertThat(buyProductDto.getQuantity()).isEqualTo(10);
+        assertThat(buyProductDto.getUnitPrice()).isEqualTo(1000);
+        assertThat(buyProductDto.getFreeQuantity()).isEqualTo(3);
+        assertThat(buyProductDto.getLackQuantity()).isEqualTo(1);
+        assertThat(buyProductDto.getNeedQuantity()).isEqualTo(0);
     }
 
     @Test
     void 프로모션_상품을_구매한다3() {
         BuyProductDto buyProductDto = inventory.buy("콜라", 20);
-        assertThat(buyProductDto.name()).isEqualTo("콜라");
-        assertThat(buyProductDto.quantity()).isEqualTo(20);
-        assertThat(buyProductDto.unitPrice()).isEqualTo(1000);
-        assertThat(buyProductDto.freeQuantity()).isEqualTo(3);
-        assertThat(buyProductDto.lackQuantity()).isEqualTo(11);
-        assertThat(buyProductDto.needQuantity()).isEqualTo(0);
+        assertThat(buyProductDto.getName()).isEqualTo("콜라");
+        assertThat(buyProductDto.getQuantity()).isEqualTo(20);
+        assertThat(buyProductDto.getUnitPrice()).isEqualTo(1000);
+        assertThat(buyProductDto.getFreeQuantity()).isEqualTo(3);
+        assertThat(buyProductDto.getLackQuantity()).isEqualTo(11);
+        assertThat(buyProductDto.getNeedQuantity()).isEqualTo(0);
     }
 
     @Test
     void 프로모션_상품을_부족하게구매한다() {
         BuyProductDto buyProductDto = inventory.buy("콜라", 2);
-        assertThat(buyProductDto.name()).isEqualTo("콜라");
-        assertThat(buyProductDto.quantity()).isEqualTo(2);
-        assertThat(buyProductDto.unitPrice()).isEqualTo(1000);
-        assertThat(buyProductDto.freeQuantity()).isEqualTo(0);
-        assertThat(buyProductDto.lackQuantity()).isEqualTo(0);
-        assertThat(buyProductDto.needQuantity()).isEqualTo(1);
+        assertThat(buyProductDto.getName()).isEqualTo("콜라");
+        assertThat(buyProductDto.getQuantity()).isEqualTo(2);
+        assertThat(buyProductDto.getUnitPrice()).isEqualTo(1000);
+        assertThat(buyProductDto.getFreeQuantity()).isEqualTo(0);
+        assertThat(buyProductDto.getLackQuantity()).isEqualTo(0);
+        assertThat(buyProductDto.getNeedQuantity()).isEqualTo(1);
     }
 
     @Test
     void 프로모션_상품의_재고가_부족할_경우() {
         BuyProductDto buyProductDto = inventory.buy("콜라", 15);
-        assertThat(buyProductDto.name()).isEqualTo("콜라");
-        assertThat(buyProductDto.quantity()).isEqualTo(15);
-        assertThat(buyProductDto.unitPrice()).isEqualTo(1000);
-        assertThat(buyProductDto.freeQuantity()).isEqualTo(3);
-        assertThat(buyProductDto.lackQuantity()).isEqualTo(6);
-        assertThat(buyProductDto.needQuantity()).isEqualTo(0);
+        assertThat(buyProductDto.getName()).isEqualTo("콜라");
+        assertThat(buyProductDto.getQuantity()).isEqualTo(15);
+        assertThat(buyProductDto.getUnitPrice()).isEqualTo(1000);
+        assertThat(buyProductDto.getFreeQuantity()).isEqualTo(3);
+        assertThat(buyProductDto.getLackQuantity()).isEqualTo(6);
+        assertThat(buyProductDto.getNeedQuantity()).isEqualTo(0);
     }
 
     @Test
