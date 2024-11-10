@@ -15,6 +15,7 @@ import store.view.OutputView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StoreController {
     public void openConvenienceStore() {
@@ -48,37 +49,68 @@ public class StoreController {
     }
 
     private List<BuyProductDto> buyProduct(Inventory inventory) {
-        List<BuyProductDto> boughtProducts = new ArrayList<>();
-
-        List<BuyProductParseDto> rawBuyProducts = BuyProductParser.parse(InputView.inputBuyProducts());
-        for (BuyProductParseDto rawBuyProduct : rawBuyProducts) {
-            BuyProductDto boughtProduct = inventory.buy(rawBuyProduct.name(), rawBuyProduct.quantity());
-            askNoPromotionSale(boughtProduct);
-            askBuyMoreProduct(boughtProduct);
-            boughtProducts.add(boughtProduct);
+        while (true) {
+            try {
+                List<BuyProductParseDto> rawBuyProducts = BuyProductParser.parse(InputView.inputBuyProducts());
+                return collectBoughtProduct(inventory, rawBuyProducts);
+            } catch (IllegalArgumentException exception) {
+                System.out.println(exception.getMessage());
+            }
         }
-        return boughtProducts;
+    }
+
+    private List<BuyProductDto> collectBoughtProduct(Inventory inventory, List<BuyProductParseDto> rawBuyProducts) {
+        return rawBuyProducts.stream()
+                .map(rawBuyProduct -> {
+                    BuyProductDto boughtProduct = inventory.buy(rawBuyProduct.name(), rawBuyProduct.quantity());
+                    checkIfLackOrNeed(boughtProduct);
+                    return boughtProduct;
+                })
+                .collect(Collectors.toList());
+    }
+
+    private void checkIfLackOrNeed(BuyProductDto boughtProduct) {
+        if (boughtProduct.getLackQuantity() > 0) {
+            askNoPromotionSale(boughtProduct);
+        }
+        if (boughtProduct.getNeedQuantity() > 0) {
+            askBuyMoreProduct(boughtProduct);
+        }
     }
 
     private void askNoPromotionSale(BuyProductDto boughtProduct) {
-        if (boughtProduct.getLackQuantity() < 0) {
-            return;
+        while (true) {
+            try {
+                String answer = InputView.inputNoPromotionSale(boughtProduct.getName(), boughtProduct.getLackQuantity());
+                InputValidator.validateYesNo(answer);
+                decreaseLackQuantityByAnswer(boughtProduct, answer);
+                return;
+            } catch (IllegalArgumentException exception) {
+                System.out.println(exception.getMessage());
+            }
         }
+    }
 
-        String answer = InputView.inputNoPromotionSale(boughtProduct.getName(), boughtProduct.getLackQuantity());
-        InputValidator.validateYesNo(answer);
-        if (answer.equals("Y")) {
+    private void decreaseLackQuantityByAnswer(BuyProductDto boughtProduct, String answer) {
+        if (answer.equals("N")) {
             boughtProduct.decreaseLackQuantity();
         }
     }
 
     private void askBuyMoreProduct(BuyProductDto boughtProduct) {
-        if (boughtProduct.getNeedQuantity() < 0) {
-            return;
+        while (true) {
+            try {
+                String answer = InputView.inputBuyMoreProduct(boughtProduct.getName(), boughtProduct.getNeedQuantity());
+                InputValidator.validateYesNo(answer);
+                decreaseNeedQuantityByAnswer(boughtProduct, answer);
+                return;
+            } catch (IllegalArgumentException exception) {
+                System.out.println(exception.getMessage());
+            }
         }
+    }
 
-        String answer = InputView.inputBuyMoreProduct(boughtProduct.getName(), boughtProduct.getNeedQuantity());
-        InputValidator.validateYesNo(answer);
+    private void decreaseNeedQuantityByAnswer(BuyProductDto boughtProduct, String answer) {
         if (answer.equals("Y")) {
             boughtProduct.decreaseNeedQuantity();
         }
@@ -90,10 +122,19 @@ public class StoreController {
     }
 
     private boolean askMembershipSale() {
-        String rawAnswer = InputView.inputMembershipSale();
-        InputValidator.validateYesNo(rawAnswer);
+        while (true) {
+            try {
+                String rawAnswer = InputView.inputMembershipSale();
+                InputValidator.validateYesNo(rawAnswer);
+                return makeBooleanFromAnswer(rawAnswer);
+            } catch (IllegalArgumentException exception) {
+                System.out.println(exception.getMessage());
+            }
+        }
+    }
 
-        if (rawAnswer.equals("Y")) {
+    private boolean makeBooleanFromAnswer(String answer) {
+        if (answer.equals("Y")) {
             return true;
         }
         return false;
