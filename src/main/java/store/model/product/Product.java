@@ -33,7 +33,10 @@ public class Product {
     public ProductInfoDto getProductInformaion() {
         int normalQuantity = this.quantity.getNormal();
         int promotionQuantity = this.quantity.getPromotion();
-        String promotionName = this.promotion.getName();
+        String promotionName = null;
+        if (this.promotion != null) {
+            promotionName = this.promotion.getName();
+        }
         return new ProductInfoDto(this.name, this.price, normalQuantity, promotionQuantity, promotionName);
     }
 
