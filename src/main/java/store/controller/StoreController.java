@@ -26,7 +26,7 @@ public class StoreController {
         BillingDto billingResult = calculatePrices(boughtProducts);
 
         OutputView.outputGoodBye(boughtProducts, billingResult);
-        outputRebuy();
+        askRebuy();
     }
 
     private Promotions setPromotionFromFile() {
@@ -97,5 +97,24 @@ public class StoreController {
             return true;
         }
         return false;
+    }
+
+    private void askRebuy() {
+        while (true) {
+            try {
+                String rawAnser = InputView.inputRebuy();
+                InputValidator.validateYesNo(rawAnser);
+                restartStoreWithAnswer(rawAnser);
+                return;
+            } catch (IllegalArgumentException exception) {
+                System.out.println(exception.getMessage());
+            }
+        }
+    }
+
+    private void restartStoreWithAnswer(String answer) {
+        if (answer.equals("Y")) {
+            openConvenienceStore();
+        }
     }
 }
