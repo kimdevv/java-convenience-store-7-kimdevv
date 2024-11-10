@@ -1,5 +1,6 @@
 package store.view;
 
+import static store.constant.Constants.*;
 import store.dto.BillingDto;
 import store.dto.BuyProductDto;
 import store.dto.ProductInfoDto;
@@ -15,12 +16,19 @@ public class OutputView {
         System.out.println("현재 보유하고 있는 상품입니다.\n");
         for (ProductInfoDto product : allProducts) {
             if (product.promotionName() != null) {
-                System.out.printf("- %s %,d원 %d개 %s \n"
-                        , product.name(), product.price(), product.promotionQuantity(), product.promotionName());
+                System.out.printf("- %s %,d원 %s %s \n", product.name(),
+                        product.price(), outputQuantity(product.promotionQuantity()), product.promotionName());
             }
-            System.out.printf("- %s %,d원 %d개 \n"
-                    , product.name(), product.price(), product.normalQuantity());
+            System.out.printf("- %s %,d원 %s \n", product.name(),
+                    product.price(), outputQuantity(product.normalQuantity()));
         }
+    }
+
+    private static String outputQuantity(int quantity) {
+        if (quantity == MINIMUN_QUANTITY_OF_PRODUCT) {
+            return "재고 없음";
+        }
+        return String.format("%,d개", quantity);
     }
 
     public static void outputGoodBye(List<BuyProductDto> boughtProducts, BillingDto billingResult) {
@@ -29,13 +37,13 @@ public class OutputView {
     }
 
     private static void outputBoughtProducts(List<BuyProductDto> boughtProducts) {
-        StringBuilder allProducts = new StringBuilder("==============W 편의점================\n상품명\t\t수량\t\t금액\n");
-        StringBuilder freeProducts = new StringBuilder("==============증\t정================\n");
+        StringBuilder allProducts = new StringBuilder("==============W 편의점================\n상품명\s\s수량\s금액\n");
+        StringBuilder freeProducts = new StringBuilder("==============증\s정================\n");
         for (BuyProductDto boughtProduct : boughtProducts) {
-            allProducts.append(String.format("%s\t\t%d\t\t%,d\n", boughtProduct.getName(),
+            allProducts.append(String.format("%s\s\s%d\s%,d\n", boughtProduct.getName(),
                     boughtProduct.getQuantity(), boughtProduct.getQuantity() * boughtProduct.getUnitPrice()));
             if (boughtProduct.getFreeQuantity() > 0) {
-                freeProducts.append(String.format("%s\t\t%d\n", boughtProduct.getName(), boughtProduct.getFreeQuantity()));
+                freeProducts.append(String.format("%s\s\s%d\n", boughtProduct.getName(), boughtProduct.getFreeQuantity()));
             }
         }
         System.out.println(allProducts.append(freeProducts));
@@ -43,10 +51,10 @@ public class OutputView {
 
     private static void outputBillingResult(BillingDto billingResult) {
         StringBuilder billResult = new StringBuilder("====================================\n");
-        billResult.append(String.format("총구매액\t\t%d\t\t%,d\n", billingResult.totalCount(), billingResult.totalPrice()));
-        billResult.append(String.format("행사할인\t\t\t\t-%d\n", billingResult.promotionSale()));
-        billResult.append(String.format("멤버십할인\t\t\t-%d\n", billingResult.membershipSale()));
-        billResult.append(String.format("내실돈\t\t\t\t %d\n",billingResult.payCost()));
+        billResult.append(String.format("총구매액\s\s%d\s%,d\n", billingResult.totalCount(), billingResult.totalPrice()));
+        billResult.append(String.format("행사할인\s\s\s-%,d\n", billingResult.promotionSale()));
+        billResult.append(String.format("멤버십할인\s\s\s-%,d\n", billingResult.membershipSale()));
+        billResult.append(String.format("내실돈\s\s\s%,d\n",billingResult.payCost()));
         System.out.println(billResult);
     }
 }
