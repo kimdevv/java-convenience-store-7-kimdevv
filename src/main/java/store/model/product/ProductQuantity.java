@@ -6,8 +6,8 @@ import store.enumerate.ExceptionEnum;
 import store.utility.ExceptionThrower;
 
 public class ProductQuantity {
-    int normalQuantity;
-    int promotionQuantity;
+    private int normalQuantity;
+    private int promotionQuantity;
 
     protected ProductQuantity() {
     }
@@ -53,6 +53,14 @@ public class ProductQuantity {
         if (quantity > normalQuantity) {
             ExceptionThrower.throwing(ExceptionEnum.TOO_MANY_COUNT);
         }
+    }
+
+    protected int getNormal() {
+        return this.normalQuantity;
+    }
+
+    protected int getPromotion() {
+        return this.promotionQuantity;
     }
 
     protected void setNormal(int quantity) {

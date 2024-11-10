@@ -1,6 +1,7 @@
 package store.model.product;
 
 import store.dto.DecreasePromotionQuantityDto;
+import store.dto.ProductInfoDto;
 import store.dto.PromotionCountDto;
 import store.model.promotion.Promotion;
 
@@ -27,6 +28,13 @@ public class Product {
             return this.promotion.checkAvailablePromotion();
         }
         return null;
+    }
+
+    public ProductInfoDto getProductInformaion() {
+        int normalQuantity = this.quantity.getNormal();
+        int promotionQuantity = this.quantity.getPromotion();
+        String promotionName = this.promotion.getName();
+        return new ProductInfoDto(this.name, this.price, normalQuantity, promotionQuantity, promotionName);
     }
 
     public String getName() {

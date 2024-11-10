@@ -2,11 +2,14 @@ package store.model.store;
 
 import store.dto.BuyProductDto;
 import store.dto.DecreasePromotionQuantityDto;
+import store.dto.ProductInfoDto;
 import store.enumerate.ExceptionEnum;
 import store.model.product.Product;
 import store.utility.ExceptionThrower;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Inventory {
     private List<Product> products;
@@ -43,5 +46,11 @@ public class Inventory {
         int lackQuantity = promotionQuantityDto.lackQuantity();
         int needQuantity = promotionQuantityDto.needQuantity();
         return new BuyProductDto(name, quantity, unitPrice, freeQuantity, lackQuantity, needQuantity);
+    }
+
+    public List<ProductInfoDto> getAllProductsInfomation() {
+        return this.products.stream()
+                .map(product -> product.getProductInformaion())
+                .collect(Collectors.toList());
     }
 }
