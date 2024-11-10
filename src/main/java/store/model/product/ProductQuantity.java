@@ -3,7 +3,6 @@ package store.model.product;
 import store.dto.DecreasePromotionQuantityDto;
 import store.dto.PromotionCountDto;
 import store.enumerate.ExceptionEnum;
-import store.utility.ExceptionThrower;
 
 public class ProductQuantity {
     private int normalQuantity;
@@ -51,7 +50,7 @@ public class ProductQuantity {
 
     private void validateAvailableDecrease(int quantity) {
         if (quantity > normalQuantity) {
-            ExceptionThrower.throwing(ExceptionEnum.TOO_MANY_COUNT);
+            throw new IllegalArgumentException(ExceptionEnum.TOO_MANY_COUNT.getMessage());
         }
     }
 

@@ -25,7 +25,7 @@ public class BuyProductParser {
 
     private static void validateFormat(String rawProductInput) {
         if (!INPUT_FORMAT.matcher(rawProductInput).matches()) {
-            ExceptionThrower.throwing(ExceptionEnum.INVALID_BUY_INPUT_FORMAT);
+            throw new IllegalArgumentException(ExceptionEnum.INVALID_BUY_INPUT_FORMAT.getMessage());
         }
     }
 }

@@ -1,7 +1,6 @@
 package store.dto;
 
 import store.enumerate.ExceptionEnum;
-import store.utility.ExceptionThrower;
 
 public class BuyProductDto {
     private String name;
@@ -23,7 +22,7 @@ public class BuyProductDto {
 
     public void decreaseLackQuantity() {
         if (this.lackQuantity < 1) {
-            ExceptionThrower.throwing(ExceptionEnum.NO_DECREASABLE_COUNT);
+            throw new IllegalArgumentException(ExceptionEnum.NO_DECREASABLE_COUNT.getMessage());
         }
         this.quantity -= this.lackQuantity;
         this.lackQuantity = 0;
@@ -31,7 +30,7 @@ public class BuyProductDto {
 
     public void decreaseNeedQuantity() {
         if (this.needQuantity < 1) {
-            ExceptionThrower.throwing(ExceptionEnum.NO_DECREASABLE_COUNT);
+            throw new IllegalArgumentException(ExceptionEnum.NO_DECREASABLE_COUNT.getMessage());
         }
         this.freeQuantity += this.needQuantity;
         this.needQuantity = 0;

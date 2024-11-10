@@ -8,6 +8,6 @@ public class InputValidator {
         if (answer.equals("Y") || answer.equals("N")) {
             return;
         }
-        ExceptionThrower.throwing(ExceptionEnum.ANSWER_HAVE_TO_YN);
+        throw new IllegalArgumentException(ExceptionEnum.ANSWER_HAVE_TO_YN.getMessage());
     }
 }

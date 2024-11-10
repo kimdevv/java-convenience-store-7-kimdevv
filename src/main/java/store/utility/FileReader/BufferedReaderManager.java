@@ -1,7 +1,6 @@
 package store.utility.FileReader;
 
 import store.enumerate.ExceptionEnum;
-import store.utility.ExceptionThrower;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -13,8 +12,7 @@ public class BufferedReaderManager {
         try {
             return new BufferedReader(new FileReader(filePath));
         } catch (FileNotFoundException exception) {
-            ExceptionThrower.throwing(ExceptionEnum.FILE_NOT_FOUND);
-            return null;
+            throw new IllegalArgumentException(ExceptionEnum.FILE_NOT_FOUND.getMessage());
         }
     }
 
@@ -22,8 +20,7 @@ public class BufferedReaderManager {
         try {
             return bufferedReader.readLine();
         } catch (IOException exception) {
-            ExceptionThrower.throwing(ExceptionEnum.READ_LINE_ERROR);
-            return null;
+            throw new IllegalArgumentException(ExceptionEnum.READ_LINE_ERROR.getMessage());
         }
     }
 }

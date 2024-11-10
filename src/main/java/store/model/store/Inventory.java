@@ -5,9 +5,7 @@ import store.dto.DecreasePromotionQuantityDto;
 import store.dto.ProductInfoDto;
 import store.enumerate.ExceptionEnum;
 import store.model.product.Product;
-import store.utility.ExceptionThrower;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +32,7 @@ public class Inventory {
 
     private void validateProductIsNull(Product product) {
         if (product == null) {
-            ExceptionThrower.throwing(ExceptionEnum.CANNOT_FIND_PRODUCT);
+            throw new IllegalArgumentException(ExceptionEnum.CANNOT_FIND_PRODUCT.getMessage());
         }
     }
 
