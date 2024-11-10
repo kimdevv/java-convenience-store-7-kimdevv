@@ -3,6 +3,7 @@ package store.service;
 import store.dto.BuyProductDto;
 import store.dto.BuyProductParseDto;
 import store.model.store.Inventory;
+import store.utility.BooleanMakerFromYN;
 import store.utility.BuyProductParser;
 import store.utility.InputValidator;
 import store.view.InputView;
@@ -10,7 +11,7 @@ import store.view.InputView;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static store.constant.Constants.MINIMUN_QUANTITY_OF_PRODUCT;
+import static store.constant.Constants.*;
 
 public class ProductBuyer {
     public List<BuyProductDto> buyProduct(Inventory inventory) {
@@ -57,9 +58,10 @@ public class ProductBuyer {
     }
 
     private void decreaseLackQuantityByAnswer(BuyProductDto boughtProduct, String answer) {
-        if (answer.equals("N")) {
-            boughtProduct.decreaseLackQuantity();
+        if (BooleanMakerFromYN.make(answer)) {
+            return;
         }
+        boughtProduct.decreaseLackQuantity();
     }
 
     private void askBuyMoreProduct(BuyProductDto boughtProduct) {
@@ -76,7 +78,7 @@ public class ProductBuyer {
     }
 
     private void decreaseNeedQuantityByAnswer(BuyProductDto boughtProduct, String answer) {
-        if (answer.equals("Y")) {
+        if (BooleanMakerFromYN.make(answer)) {
             boughtProduct.increaseNeedQuantity();
         }
     }

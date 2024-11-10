@@ -1,13 +1,12 @@
 package store.controller;
 
-import static store.constant.Constants.*;
 import store.dto.*;
 import store.model.product.Product;
 import store.model.store.Inventory;
 import store.model.store.Promotions;
 import store.service.InventoryMaker;
 import store.service.ProductBuyer;
-import store.utility.BuyProductParser;
+import store.utility.BooleanMakerFromYN;
 import store.utility.FileReader.InventoryFileReader;
 import store.utility.FileReader.PromotionFileReader;
 import store.utility.InputValidator;
@@ -59,18 +58,11 @@ public class StoreController {
             try {
                 String rawAnswer = InputView.inputMembershipSale();
                 InputValidator.validateYesNo(rawAnswer);
-                return makeBooleanFromAnswer(rawAnswer);
+                return BooleanMakerFromYN.make(rawAnswer);
             } catch (IllegalArgumentException exception) {
                 System.out.println(exception.getMessage());
             }
         }
-    }
-
-    private boolean makeBooleanFromAnswer(String answer) {
-        if (answer.equals("Y")) {
-            return true;
-        }
-        return false;
     }
 
     private void askRebuy(Inventory inventory) {
@@ -87,7 +79,7 @@ public class StoreController {
     }
 
     private void restartStoreWithAnswer(String answer, Inventory inventory) {
-        if (answer.equals("Y")) {
+        if (BooleanMakerFromYN.make(answer)) {
             openConvenienceStore(inventory);
         }
     }
