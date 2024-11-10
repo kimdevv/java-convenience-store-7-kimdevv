@@ -31,7 +31,7 @@ public class PriceCalculator {
         int promotionSale = 0;
         for (BuyProductDto boughtProduct : boughtProducts) {
             int unitPrice = boughtProduct.getUnitPrice();
-            totalPrice += unitPrice;
+            totalPrice += boughtProduct.getQuantity() * unitPrice;
             promotionSale += boughtProduct.getFreeQuantity() * unitPrice;
         }
         return new int[] {totalPrice, promotionSale};
