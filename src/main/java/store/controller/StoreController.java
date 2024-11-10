@@ -18,16 +18,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class StoreController {
-    public void openConvenienceStore() {
-        Promotions promotions = setPromotionFromFile();
-        Inventory inventory = setInventoryFromFile(promotions);
+    public void run() {
+        Inventory inventory = setFromFile();
+        openConvenienceStore(inventory);
+    }
+
+    private void openConvenienceStore(Inventory inventory) {
         outputStoreGreeting(inventory.getAllProductsInfomation());
 
         List<BuyProductDto> boughtProducts = buyProduct(inventory);
         BillingDto billingResult = calculatePrices(boughtProducts);
 
         OutputView.outputGoodBye(boughtProducts, billingResult);
-        askRebuy();
+        askRebuy(inventory);
+    }
+
+    private Inventory setFromFile() {
+        Promotions promotions = setPromotionFromFile();
+        return setInventoryFromFile(promotions);
     }
 
     private Promotions setPromotionFromFile() {
@@ -140,12 +148,12 @@ public class StoreController {
         return false;
     }
 
-    private void askRebuy() {
+    private void askRebuy(Inventory inventory) {
         while (true) {
             try {
                 String rawAnser = InputView.inputRebuy();
                 InputValidator.validateYesNo(rawAnser);
-                restartStoreWithAnswer(rawAnser);
+                restartStoreWithAnswer(rawAnser, inventory);
                 return;
             } catch (IllegalArgumentException exception) {
                 System.out.println(exception.getMessage());
@@ -153,9 +161,9 @@ public class StoreController {
         }
     }
 
-    private void restartStoreWithAnswer(String answer) {
+    private void restartStoreWithAnswer(String answer, Inventory inventory) {
         if (answer.equals("Y")) {
-            openConvenienceStore();
+            openConvenienceStore(inventory);
         }
     }
 }
