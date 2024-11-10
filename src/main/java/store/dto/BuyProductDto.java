@@ -28,10 +28,11 @@ public class BuyProductDto {
         this.lackQuantity = 0;
     }
 
-    public void decreaseNeedQuantity() {
+    public void increaseNeedQuantity() {
         if (this.needQuantity < 1) {
             throw new IllegalArgumentException(ExceptionEnum.NO_DECREASABLE_COUNT.getMessage());
         }
+        this.quantity += this.needQuantity;
         this.freeQuantity += this.needQuantity;
         this.needQuantity = 0;
     }

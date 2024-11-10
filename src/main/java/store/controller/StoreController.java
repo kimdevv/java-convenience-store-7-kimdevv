@@ -120,7 +120,7 @@ public class StoreController {
 
     private void decreaseNeedQuantityByAnswer(BuyProductDto boughtProduct, String answer) {
         if (answer.equals("Y")) {
-            boughtProduct.decreaseNeedQuantity();
+            boughtProduct.increaseNeedQuantity();
         }
     }
 
