@@ -18,7 +18,7 @@ public class Inventory {
 
     public BuyProductDto buy(String productName, int quantity) {
         Product product = findProductByName(productName);
-        validateProductIsNull(product);
+        validateExistProductName(product);
 
         return makeBuyDto(product, quantity);
     }
@@ -30,7 +30,7 @@ public class Inventory {
                 .orElse(null);
     }
 
-    private void validateProductIsNull(Product product) {
+    private void validateExistProductName(Product product) {
         if (product == null) {
             throw new IllegalArgumentException(ExceptionEnum.CANNOT_FIND_PRODUCT.getMessage());
         }
