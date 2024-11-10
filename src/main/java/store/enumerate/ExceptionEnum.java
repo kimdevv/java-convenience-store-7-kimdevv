@@ -16,6 +16,6 @@ public enum ExceptionEnum {
     }
 
     public String getMessage() {
-        return "[ERROR]" + message;
+        return "[ERROR] " + message;
     }
 }
