@@ -12,19 +12,23 @@ public class ProductQuantity {
     }
 
     protected DecreasePromotionQuantityDto decrease(int quantity, PromotionCountDto promotionCountDto) {
+        validateAvailableDecrease(quantity);
         if (promotionCountDto != null) {
-            int buyCount = promotionCountDto.buyCount(), getCount = promotionCountDto.getCount();
-            int[] freeAndLackAndRemain = decreasePromotionQuantity(quantity, buyCount, getCount);
-            int needQuantity = calculateNeedQuantity(quantity, buyCount, getCount);
-            decreaseNormalQuantity(freeAndLackAndRemain[2]);
-            return new DecreasePromotionQuantityDto(freeAndLackAndRemain[0], freeAndLackAndRemain[1], needQuantity);
+            return decreasePromotionQuantity(quantity, promotionCountDto);
         }
         decreaseNormalQuantity(quantity);
         return new DecreasePromotionQuantityDto(0, 0, 0);
     }
 
+    private DecreasePromotionQuantityDto decreasePromotionQuantity(int quantity, PromotionCountDto promotionCountDto) {
+        int buyCount = promotionCountDto.buyCount(), getCount = promotionCountDto.getCount();
+        int[] freeAndLackAndRemain = decreasePromotionQuantity(quantity, buyCount, getCount);
+        int needQuantity = calculateNeedQuantity(quantity, buyCount, getCount);
+        decreaseNormalQuantity(freeAndLackAndRemain[2]);
+        return new DecreasePromotionQuantityDto(freeAndLackAndRemain[0], freeAndLackAndRemain[1], needQuantity);
+    }
+
     private void decreaseNormalQuantity(int quantity) {
-        validateAvailableDecrease(quantity);
         this.normalQuantity -= quantity;
     }
 
@@ -49,7 +53,7 @@ public class ProductQuantity {
     }
 
     private void validateAvailableDecrease(int quantity) {
-        if (quantity > normalQuantity) {
+        if (quantity > normalQuantity + promotionQuantity) {
             throw new IllegalArgumentException(ExceptionEnum.TOO_MANY_COUNT.getMessage());
         }
     }

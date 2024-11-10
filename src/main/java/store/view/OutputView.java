@@ -35,7 +35,7 @@ public class OutputView {
             allProducts.append(String.format("%s\t\t%d\t\t%,d\n", boughtProduct.getName(),
                     boughtProduct.getQuantity(), boughtProduct.getQuantity() * boughtProduct.getUnitPrice()));
             if (boughtProduct.getFreeQuantity() > 0) {
-                freeProducts.append(String.format("%s\t\t%d", boughtProduct.getName(), boughtProduct.getFreeQuantity()));
+                freeProducts.append(String.format("%s\t\t%d\n", boughtProduct.getName(), boughtProduct.getFreeQuantity()));
             }
         }
         System.out.println(allProducts.append(freeProducts));
