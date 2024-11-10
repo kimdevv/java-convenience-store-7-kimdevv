@@ -23,8 +23,8 @@ public class ProductQuantity {
 
     private DecreasePromotionQuantityDto decreasePromotionQuantity(int quantity, PromotionCountDto promotionCountDto) {
         int buyCount = promotionCountDto.buyCount(), getCount = promotionCountDto.getCount();
-        int[] freeAndLackAndRemain = decreasePromotionQuantity(quantity, buyCount, getCount);
-        int needQuantity = calculateNeedQuantity(quantity, buyCount, getCount);
+        int[] freeAndLackAndRemain = calculateFreeAndLackAndRemainQuantity(quantity, buyCount, getCount);
+        int needQuantity = calculateNeedQuantity(quantity, freeAndLackAndRemain[0], buyCount, getCount);
         decreaseNormalQuantity(freeAndLackAndRemain[2]);
         return new DecreasePromotionQuantityDto(freeAndLackAndRemain[0], freeAndLackAndRemain[1], needQuantity);
     }
@@ -33,14 +33,15 @@ public class ProductQuantity {
         this.normalQuantity -= quantity;
     }
 
-    private int calculateNeedQuantity(int quantity, int buyCount, int getCount) {
-        if (buyCount + getCount > quantity) {
-            return buyCount + getCount - quantity;
+    private int calculateNeedQuantity(int quantity, int freeQuantity, int buyCount, int getCount) {
+        int remainPromotionQuantity = quantity - freeQuantity * (buyCount+getCount);
+        if (remainPromotionQuantity == buyCount && this.promotionQuantity >= getCount) {
+            return getCount;
         }
         return 0;
     }
 
-    private int[] decreasePromotionQuantity(int quantity, int buyCount, int getCount) {
+    private int[] calculateFreeAndLackAndRemainQuantity(int quantity, int buyCount, int getCount) {
         if (quantity >= promotionQuantity) {
             int freeQuantity = promotionQuantity / (buyCount + getCount) * getCount;
             int lackQuantity = quantity - (freeQuantity * (buyCount+getCount));
