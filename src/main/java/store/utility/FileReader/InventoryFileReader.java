@@ -1,5 +1,6 @@
 package store.utility.FileReader;
 
+import static store.constant.Constants.*;
 import store.dto.ParsedProductDto;
 
 import java.io.BufferedReader;
@@ -11,13 +12,13 @@ import static store.utility.FileReader.BufferedReaderManager.readLine;
 
 public class InventoryFileReader {
     public static List<ParsedProductDto> inputInventoryFromFile() {
-        BufferedReader productFileReader = getFileReaderFromPath("src/main/resources/products.md");
+        BufferedReader productFileReader = getFileReaderFromPath(PRODUCT_FILE_PATH);
         readLine(productFileReader);
 
         String productLine;
         List<ParsedProductDto> parsedProducts = new ArrayList<>();
         while ((productLine = readLine(productFileReader)) != null) {
-            String[] splittedProduct = productLine.split(",");
+            String[] splittedProduct = productLine.split(FILE_INPUT_DELIMITER);
             parsedProducts.add(generateProductDto(splittedProduct));
         }
         return parsedProducts;

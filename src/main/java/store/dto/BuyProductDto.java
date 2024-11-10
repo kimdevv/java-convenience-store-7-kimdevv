@@ -1,5 +1,6 @@
 package store.dto;
 
+import static store.constant.Constants.*;
 import store.enumerate.ExceptionEnum;
 
 public class BuyProductDto {
@@ -21,20 +22,20 @@ public class BuyProductDto {
     }
 
     public void decreaseLackQuantity() {
-        if (this.lackQuantity < 1) {
+        if (this.lackQuantity <= MINIMUN_QUANTITY_OF_PRODUCT) {
             throw new IllegalArgumentException(ExceptionEnum.NO_DECREASABLE_COUNT.getMessage());
         }
         this.quantity -= this.lackQuantity;
-        this.lackQuantity = 0;
+        this.lackQuantity = MINIMUN_QUANTITY_OF_PRODUCT;
     }
 
     public void increaseNeedQuantity() {
-        if (this.needQuantity < 1) {
+        if (this.needQuantity <= MINIMUN_QUANTITY_OF_PRODUCT) {
             throw new IllegalArgumentException(ExceptionEnum.NO_DECREASABLE_COUNT.getMessage());
         }
         this.quantity += this.needQuantity;
         this.freeQuantity += this.needQuantity;
-        this.needQuantity = 0;
+        this.needQuantity = MINIMUN_QUANTITY_OF_PRODUCT;
     }
 
     public String getName() {

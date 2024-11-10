@@ -1,5 +1,6 @@
 package store.model.product;
 
+import static store.constant.Constants.*;
 import store.dto.DecreasePromotionQuantityDto;
 import store.dto.PromotionCountDto;
 import store.enumerate.ExceptionEnum;
@@ -17,7 +18,7 @@ public class ProductQuantity {
             return decreasePromotionQuantity(quantity, promotionCountDto);
         }
         decreaseNormalQuantity(quantity);
-        return new DecreasePromotionQuantityDto(0, 0, 0);
+        return new DecreasePromotionQuantityDto();
     }
 
     private DecreasePromotionQuantityDto decreasePromotionQuantity(int quantity, PromotionCountDto promotionCountDto) {
@@ -44,12 +45,12 @@ public class ProductQuantity {
             int freeQuantity = promotionQuantity / (buyCount + getCount) * getCount;
             int lackQuantity = quantity - (freeQuantity * (buyCount+getCount));
             int remainQuantity = quantity - promotionQuantity;
-            promotionQuantity = 0;
+            promotionQuantity = MINIMUN_QUANTITY_OF_PRODUCT;
             return new int[] {freeQuantity, lackQuantity, remainQuantity};
         }
         int freeQuantity = quantity / (buyCount+getCount) * getCount;
         promotionQuantity -= quantity;
-        return new int[] {freeQuantity, 0, 0};
+        return new int[] {freeQuantity, MINIMUN_QUANTITY_OF_PRODUCT, MINIMUN_QUANTITY_OF_PRODUCT};
     }
 
     private void validateAvailableDecrease(int quantity) {

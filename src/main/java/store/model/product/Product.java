@@ -11,14 +11,14 @@ public class Product {
     private ProductQuantity quantity;
     private Promotion promotion;
 
-    public Product(String name, int price) {
+    public Product(final String name, final int price) {
         this.name = name;
         this.price = price;
         this.quantity = new ProductQuantity();
         this.promotion = null;
     }
 
-    public DecreasePromotionQuantityDto decreaseBoughtQuantity(int quantity) {
+    public DecreasePromotionQuantityDto decreaseBoughtQuantity(final int quantity) {
         PromotionCountDto promotionCountDto = getPromotionDate();
         return this.quantity.decrease(quantity, promotionCountDto);
     }

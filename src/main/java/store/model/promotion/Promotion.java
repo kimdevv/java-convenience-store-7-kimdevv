@@ -7,7 +7,8 @@ public class Promotion {
     PromotionCount count;
     PromotionDate date;
 
-    public Promotion(String name, int buyCount, int getCount, String startDate, String endDate) {
+    public Promotion(final String name, final int buyCount,
+                     final int getCount, final String startDate, final String endDate) {
         this.name = name;
         this.count = new PromotionCount(buyCount, getCount);
         this.date = new PromotionDate(startDate, endDate);

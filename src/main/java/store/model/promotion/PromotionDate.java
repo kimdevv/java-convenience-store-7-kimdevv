@@ -9,7 +9,7 @@ public class PromotionDate {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    protected PromotionDate(String startDate, String endDate) {
+    protected PromotionDate(final String startDate, final String endDate) {
         this.startDate = DateTimeManager.parse(startDate);
         this.endDate = DateTimeManager.parse(endDate);
     }

@@ -1,5 +1,6 @@
 package store.utility.FileReader;
 
+import static store.constant.Constants.*;
 import store.dto.ParsedPromotionDto;
 
 import java.io.BufferedReader;
@@ -11,13 +12,13 @@ import static store.utility.FileReader.BufferedReaderManager.readLine;
 
 public class PromotionFileReader {
     public static List<ParsedPromotionDto> inputPromotionsFromFile() {
-        BufferedReader promotionFileReader = getFileReaderFromPath("src/main/resources/promotions.md");
+        BufferedReader promotionFileReader = getFileReaderFromPath(PROMOTION_FILE_PATH);
         readLine(promotionFileReader);
 
         String promotionLine;
         List<ParsedPromotionDto> parsedPromotions = new ArrayList<>();
         while ((promotionLine = readLine(promotionFileReader)) != null) {
-            String[] splittedPromotion = promotionLine.split(",");
+            String[] splittedPromotion = promotionLine.split(FILE_INPUT_DELIMITER);
             parsedPromotions.add(generatePromotionDto(splittedPromotion));
         }
         return parsedPromotions;

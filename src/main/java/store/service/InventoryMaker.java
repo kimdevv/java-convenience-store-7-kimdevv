@@ -28,7 +28,8 @@ public class InventoryMaker {
         return products;
     }
     
-    private Product generateProductFromParsedData(List<Product> products, String productName, int price, int quantity, String promotionName) {
+    private Product generateProductFromParsedData(List<Product> products,
+                                                  String productName, int price, int quantity, String promotionName) {
         Product product = findProductByNameOrNew(products, productName, price);
 
         Promotion promotion = promotions.findPromotionByPromotionName(promotionName);
