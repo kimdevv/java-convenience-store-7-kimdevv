@@ -1,9 +1,6 @@
 package store.controller;
 
-import store.dto.BuyProductDto;
-import store.dto.BuyProductParseDto;
-import store.dto.ParsedProductDto;
-import store.dto.ProductInfoDto;
+import store.dto.*;
 import store.model.product.Product;
 import store.model.store.Inventory;
 import store.model.store.Promotions;
@@ -12,6 +9,7 @@ import store.utility.BuyProductParser;
 import store.utility.FileReader.InventoryFileReader;
 import store.utility.FileReader.PromotionFileReader;
 import store.utility.InputValidator;
+import store.utility.PriceCalculator;
 import store.view.InputView;
 import store.view.OutputView;
 
@@ -22,11 +20,13 @@ public class StoreController {
     public void openConvenienceStore() {
         Promotions promotions = setPromotionFromFile();
         Inventory inventory = setInventoryFromFile(promotions);
-
         outputStoreGreeting(inventory.getAllProductsInfomation());
 
         List<BuyProductDto> boughtProducts = buyProduct(inventory);
+        BillingDto billingResult = calculatePrices(boughtProducts);
 
+        OutputView.outputGoodBye(boughtProducts, billingResult);
+        outputRebuy();
     }
 
     private Promotions setPromotionFromFile() {
@@ -82,5 +82,20 @@ public class StoreController {
         if (answer.equals("Y")) {
             boughtProduct.decreaseNeedQuantity();
         }
+    }
+
+    private BillingDto calculatePrices(List<BuyProductDto> boughtProducts) {
+        boolean isMembership = askMembershipSale();
+        return PriceCalculator.calculate(boughtProducts, isMembership);
+    }
+
+    private boolean askMembershipSale() {
+        String rawAnswer = InputView.inputMembershipSale();
+        InputValidator.validateYesNo(rawAnswer);
+
+        if (rawAnswer.equals("Y")) {
+            return true;
+        }
+        return false;
     }
 }
