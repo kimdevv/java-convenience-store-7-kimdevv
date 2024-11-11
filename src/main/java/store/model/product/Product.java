@@ -1,8 +1,10 @@
 package store.model.product;
 
+import static store.constant.Constants.*;
 import store.dto.DecreasePromotionQuantityDto;
 import store.dto.ProductInfoDto;
 import store.dto.PromotionCountDto;
+import store.enumerate.ExceptionEnum;
 import store.model.promotion.Promotion;
 
 public class Product {
@@ -12,6 +14,7 @@ public class Product {
     private Promotion promotion;
 
     public Product(final String name, final int price) {
+        validatePrice(price);
         this.name = name;
         this.price = price;
         this.quantity = new ProductQuantity();
@@ -19,6 +22,7 @@ public class Product {
     }
 
     public DecreasePromotionQuantityDto decreaseBoughtQuantity(final int quantity) {
+        validateQuantity(quantity);
         PromotionCountDto promotionCountDto = getPromotionDate();
         return this.quantity.decrease(quantity, promotionCountDto);
     }
@@ -38,6 +42,18 @@ public class Product {
             promotionName = this.promotion.getName();
         }
         return new ProductInfoDto(this.name, this.price, normalQuantity, promotionQuantity, promotionName);
+    }
+
+    private void validatePrice(int price) {
+        if (price <= MINIMUN_PRICE_OF_PRODUCT) {
+            throw new IllegalArgumentException(ExceptionEnum.WRONG_INPUT.getMessage());
+        }
+    }
+
+    private void validateQuantity(int quantity) {
+        if (quantity <= MINIMUN_QUANTITY_OF_PRODUCT) {
+            throw new IllegalArgumentException(ExceptionEnum.WRONG_INPUT.getMessage());
+        }
     }
 
     public String getName() {

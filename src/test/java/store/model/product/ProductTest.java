@@ -22,6 +22,12 @@ public class ProductTest {
     }
 
     @Test
+    public void 가격을_0이하로_입력하여_예외가_발생한다() {
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new Product("예외 발생 상품", 0));
+    }
+
+    @Test
     public void 상품_객체_정보를_받아온다() {
         ProductInfoDto productInfoDto = product.getProductInformation();
         assertThat(productInfoDto).isEqualTo(new ProductInfoDto("테스트상품",
@@ -32,5 +38,11 @@ public class ProductTest {
     public void 상품을_구매한다() {
         DecreasePromotionQuantityDto decreaseResult = product.decreaseBoughtQuantity(30);
         assertThat(decreaseResult).isEqualTo(new DecreasePromotionQuantityDto(6, 12, 0));
+    }
+
+    @Test
+    public void 구입할_상품_개수를_0이하로_입력하여_예외가_발생한다() {
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> product.decreaseBoughtQuantity(0));
     }
 }

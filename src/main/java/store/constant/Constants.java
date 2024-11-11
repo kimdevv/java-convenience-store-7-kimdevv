@@ -11,6 +11,7 @@ public class Constants {
     public static String BUY_PRODUCT_NAME_AND_QUANTITY_DELIMITER = "-";
 
     public static int MINIMUN_QUANTITY_OF_PRODUCT = 0;
+    public static int MINIMUN_PRICE_OF_PRODUCT = 0;
 
     public static String YES = "Y";
     public static String NO = "N";
