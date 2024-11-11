@@ -14,10 +14,10 @@ import java.util.stream.Collectors;
 import static store.constant.Constants.*;
 
 public class ProductBuyer {
-    public List<BuyProductDto> buyProduct(Inventory inventory) {
+    public List<BuyProductDto> buyProduct(Inventory inventory, String rawBuyProduct) {
         while (true) {
             try {
-                List<BuyProductParseDto> rawBuyProducts = BuyProductParser.parse(InputView.inputBuyProducts());
+                List<BuyProductParseDto> rawBuyProducts = BuyProductParser.parse(rawBuyProduct);
                 return collectBoughtProduct(inventory, rawBuyProducts);
             } catch (IllegalArgumentException exception) {
                 System.out.println(exception.getMessage());

@@ -26,7 +26,7 @@ public class StoreController {
         outputStoreGreeting(inventory.getAllProductsInfomation());
 
         ProductBuyer productBuyer = new ProductBuyer();
-        List<BuyProductDto> boughtProducts = productBuyer.buyProduct(inventory);
+        List<BuyProductDto> boughtProducts = productBuyer.buyProduct(inventory, InputView.inputBuyProducts());
         BillingDto billingResult = calculatePrices(boughtProducts);
 
         OutputView.outputGoodBye(boughtProducts, billingResult);
