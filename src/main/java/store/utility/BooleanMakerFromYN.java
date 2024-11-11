@@ -12,6 +12,6 @@ public class BooleanMakerFromYN {
         if (YN.equals(NO)) {
             return false;
         }
-        throw new IllegalArgumentException(ExceptionEnum.ANSWER_HAVE_TO_YN.getMessage());
+        throw new IllegalArgumentException(ExceptionEnum.WRONG_INPUT.getMessage());
     }
 }

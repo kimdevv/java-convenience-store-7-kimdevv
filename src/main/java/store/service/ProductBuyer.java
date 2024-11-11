@@ -15,20 +15,17 @@ import static store.constant.Constants.*;
 
 public class ProductBuyer {
     public List<BuyProductDto> buyProduct(Inventory inventory, String rawBuyProduct) {
-        while (true) {
-            try {
-                List<BuyProductParseDto> rawBuyProducts = BuyProductParser.parse(rawBuyProduct);
-                return collectBoughtProduct(inventory, rawBuyProducts);
-            } catch (IllegalArgumentException exception) {
-                System.out.println(exception.getMessage());
-            }
-        }
+        List<BuyProductParseDto> rawBuyProducts = BuyProductParser.parse(rawBuyProduct);
+        return collectBoughtProduct(inventory, rawBuyProducts);
     }
 
     private List<BuyProductDto> collectBoughtProduct(Inventory inventory, List<BuyProductParseDto> rawBuyProducts) {
         return rawBuyProducts.stream()
                 .map(rawBuyProduct -> {
-                    BuyProductDto boughtProduct = inventory.buy(rawBuyProduct.name(), rawBuyProduct.quantity());
+                    String productName = rawBuyProduct.name();
+                    int productQuantity = rawBuyProduct.quantity();
+                    InputValidator.validateQuantityUnderMinimumCount(productQuantity);
+                    BuyProductDto boughtProduct = inventory.buy(productName, productQuantity);
                     return checkIfLackOrNeed(inventory, boughtProduct);
                 })
                 .collect(Collectors.toList());

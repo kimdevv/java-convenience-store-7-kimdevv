@@ -25,8 +25,7 @@ public class StoreController {
     private void openConvenienceStore(Inventory inventory) {
         outputStoreGreeting(inventory.getAllProductsInfomation());
 
-        ProductBuyer productBuyer = new ProductBuyer();
-        List<BuyProductDto> boughtProducts = productBuyer.buyProduct(inventory, InputView.inputBuyProducts());
+        List<BuyProductDto> boughtProducts = getBoughtProducts(inventory);
         BillingDto billingResult = calculatePrices(boughtProducts);
 
         OutputView.outputGoodBye(boughtProducts, billingResult);
@@ -46,6 +45,17 @@ public class StoreController {
     private void outputStoreGreeting(List<ProductInfoDto> allProducts) {
         OutputView.outputWelcomeMessage();
         OutputView.outputCurrentInventory(allProducts);
+    }
+
+    private List<BuyProductDto> getBoughtProducts(Inventory inventory) {
+        while (true) {
+            try {
+                ProductBuyer productBuyer = new ProductBuyer();
+                return productBuyer.buyProduct(inventory, InputView.inputBuyProducts());
+            } catch (IllegalArgumentException exception) {
+                System.out.println(exception.getMessage());
+            }
+        }
     }
 
     private BillingDto calculatePrices(List<BuyProductDto> boughtProducts) {
