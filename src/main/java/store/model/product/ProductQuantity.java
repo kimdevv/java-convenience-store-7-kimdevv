@@ -18,7 +18,8 @@ public class ProductQuantity {
             return decreasePromotionQuantity(quantity, promotionCountDto);
         }
         decreaseNormalQuantity(quantity);
-        return new DecreasePromotionQuantityDto();
+        return new DecreasePromotionQuantityDto(
+                MINIMUN_QUANTITY_OF_PRODUCT, MINIMUN_QUANTITY_OF_PRODUCT, MINIMUN_QUANTITY_OF_PRODUCT);
     }
 
     private DecreasePromotionQuantityDto decreasePromotionQuantity(int quantity, PromotionCountDto promotionCountDto) {

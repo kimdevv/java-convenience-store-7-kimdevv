@@ -30,7 +30,7 @@ public class Product {
         return null;
     }
 
-    public ProductInfoDto getProductInformaion() {
+    public ProductInfoDto getProductInformation() {
         int normalQuantity = this.quantity.getNormal();
         int promotionQuantity = this.quantity.getPromotion();
         String promotionName = null;

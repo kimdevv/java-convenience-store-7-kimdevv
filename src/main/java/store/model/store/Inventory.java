@@ -41,15 +41,15 @@ public class Inventory {
         String name = product.getName();
         int unitPrice = product.getPrice();
         DecreasePromotionQuantityDto promotionQuantityDto = product.decreaseBoughtQuantity(quantity);
-        int freeQuantity = promotionQuantityDto.getFreeQuantity();
-        int lackQuantity = promotionQuantityDto.getLackQuantity();
-        int needQuantity = promotionQuantityDto.getNeedQuantity();
+        int freeQuantity = promotionQuantityDto.freeQuantity();
+        int lackQuantity = promotionQuantityDto.lackQuantity();
+        int needQuantity = promotionQuantityDto.needQuantity();
         return new BuyProductDto(name, quantity, unitPrice, freeQuantity, lackQuantity, needQuantity);
     }
 
     public List<ProductInfoDto> getAllProductsInfomation() {
         return this.products.stream()
-                .map(product -> product.getProductInformaion())
+                .map(product -> product.getProductInformation())
                 .collect(Collectors.toList());
     }
 
